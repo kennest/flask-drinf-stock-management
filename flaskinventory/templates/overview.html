@@ -28,13 +28,13 @@
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="/">Vue Globale</a>
+                {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="/">Vue Globale</a>
               <a class="nav-item nav-link" href="/Product">Boissons</a>
               <a class="nav-item nav-link" href="/Location">Emplacements</a>
               <a class="nav-item nav-link" href="/Reception">Reception de boissons</a>
               <a class="nav-item nav-link" href="/Sell">Ventes</a>
               <a class="nav-item nav-link" href="/Person">Clients</a>
-                {% if current_user.is_authenticated %}
                 <a class="navbar-brand" href="{{ url_for('logout') }}">Deconnexion</a>
             {% endif %}
             </div>
@@ -47,32 +47,86 @@
         <div class="col-md-8">
           {% block content %}
 
-          <h1>Overview</h1>
+          <h1>Résumé</h1>
           <div >
-            <h3 style="display: inline-block;margin-bottom:15px;"> View allocated items in each warehouse</h3>
+            <h2 style="display: inline-block;margin-bottom:15px;"> Récapitulatif des ventes effectués</h2>
           <table class="table table-hover">
           <thead>
            <tr>
              <th>ID</th>
              <th></th>
-             <th>Product</th>
+             <th>Boisson</th>
              <th></th>
-             <th>Warehouse</th>
-             <th></th>
-             <th>Quantity</th>
+             <th>Emplacement</th>
+               <th></th>
+             <th>Quantité Vendus</th>
+               <th></th>
+             <th>Prix unitaire</th>
+               <th></th>
+             <th>Prix Totale</th>
            </tr>
           </thead>
           <tbody>
 
-          {%for b in balance%}
+          {%for b in sells%}
            <tr>
-             <td>{{b.bid}}</td>
+             <td>{{b.id}}</td>
              <td></td>
-             <td>{{b.product}}</td>
+             <td>{{b.stocks.product.prod_name}}</td>
              <td></td>
-             <td>{{b.location}}</td>
+             <td>
+                {{ b.stocks.location.loc_name }}
+             </td>
+           <td></td>
+             <td>{{b.qty}}</td>
+               <td></td>
+             <td>{{b.stocks.price}}</td>
+           <td></td>
+             <td>{{b.stocks.price*b.qty}}</td>
+           </tr>
+
+          {% endfor %}
+
+          </table>
+        </div>
+              <hr/>
+          <div >
+            <h2 style="display: inline-block;margin-bottom:15px;"> Niveau du stocks</h2>
+          <table class="table table-hover">
+          <thead>
+           <tr>
+             <th>ID</th>
+             <th></th>
+             <th>Boisson</th>
+             <th></th>
+             <th>Emplacement</th>
+             <th></th>
+             <th>Quantité</th>
+               <th></th>
+             <th>Quantité Vendus</th>
+               <th></th>
+             <th>Quantité restante</th>
+           </tr>
+          </thead>
+          <tbody>
+
+          {%for b in sells%}
+           <tr>
+             <td>{{b.id}}</td>
              <td></td>
-             <td>{{b.quantity}}</td>
+             <td>{{b.stocks.product.prod_name}}</td>
+             <td></td>
+             <td>
+                {{ b.stocks.location.loc_name }}
+             </td>
+             <td></td>
+             <td>
+                  {{ b.stocks.prod_qty }}
+             </td>
+           <td></td>
+             <td>{{b.qty}}</td>
+               <td></td>
+             <td>{{b.stocks.prod_qty - b.qty}}</td>
            </tr>
 
           {% endfor %}

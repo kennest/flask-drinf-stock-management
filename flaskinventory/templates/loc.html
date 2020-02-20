@@ -98,9 +98,11 @@
    </div>
    <!--editmodal end-->
    <td>
+       {% if current_user.admin %}
       <a href="{{ url_for('delete', p_id = d.loc_id,type ='location' )}}">
        <button type="button" class="btn btn-delete">
        <span class="btn-icon"><i class="glyphicon glyphicon-trash"></i></span>Delete</button>
+          {% endif %}
    </td>
  </tr>
 {% endfor %}

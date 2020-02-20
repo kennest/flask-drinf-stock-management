@@ -1,6 +1,7 @@
 from flaskinventory import db
 from datetime import datetime
 from sqlalchemy.orm import relationship
+from flask_rbac import RoleMixin
 
 
 class User(db.Model):
@@ -11,11 +12,11 @@ class User(db.Model):
 
     """
     __tablename__ = 'user'
-
     email = db.Column(db.String, primary_key=True)
     username = db.Column(db.String)
     password = db.Column(db.String)
     authenticated = db.Column(db.Boolean, default=False)
+    admin = db.Column(db.Boolean, default=False)
 
     def is_active(self):
         """True, as all users are active."""
@@ -32,6 +33,7 @@ class User(db.Model):
     def is_anonymous(self):
         """False, as anonymous users aren't supported."""
         return False
+
 
 
 class Location(db.Model):
@@ -52,7 +54,7 @@ class Product(db.Model):
     stocks = relationship("Stock", back_populates="product")
 
     def __repr__(self):
-        return f"Product('{self.id}','{self.prod_name}','{self.prod_qty}')"
+        return f"Product('{self.id}','{self.prod_name}','{self.stocks[0].prod_qty}')"
 
 
 class Stock(db.Model):
@@ -112,7 +114,7 @@ class Person(db.Model):
 class Sell(db.Model):
     db.__tablename__ = 'sell'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    qty = db.Column(db.String(20), nullable=False)
+    qty = db.Column(db.Integer, nullable=False)
     person_id = db.Column(db.Integer, db.ForeignKey('person.id'))
     person = relationship('Person', back_populates="sells")
     stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'))
@@ -121,4 +123,4 @@ class Sell(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
-        return f"Sell('{self.id}','{self.product}','{self.location}','{self.quantity}')"
+        return f"Sell('{self.id}','{self.stocks.product.prod_name}','{self.stocks.location.loc_name}','{self.qty}')"

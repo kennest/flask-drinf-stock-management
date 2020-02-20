@@ -34,6 +34,13 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="site.db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="stock: table" type="3d80ac25:SqliteImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
@@ -101,7 +108,7 @@
       <workItem from="1582107694558" duration="1506000" />
       <workItem from="1582118696459" duration="12647000" />
       <workItem from="1582142506008" duration="138000" />
-      <workItem from="1582185250383" duration="18243000" />
+      <workItem from="1582185250383" duration="25695000" />
     </task>
     <servers />
   </component>
@@ -117,32 +124,32 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="685" y="241" width="530" height="600" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582119519956" />
-    <state width="1858" height="259" key="GridCell.Tab.0.bottom" timestamp="1582206092432">
+    <state width="1858" height="259" key="GridCell.Tab.0.bottom" timestamp="1582212031842">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1858" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
-    <state width="1858" height="259" key="GridCell.Tab.0.center" timestamp="1582206092432">
+    <state width="1858" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582212031842" />
+    <state width="1858" height="259" key="GridCell.Tab.0.center" timestamp="1582212031842">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1858" height="259" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
-    <state width="1858" height="259" key="GridCell.Tab.0.left" timestamp="1582206092432">
+    <state width="1858" height="259" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582212031842" />
+    <state width="1858" height="259" key="GridCell.Tab.0.left" timestamp="1582212031842">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1858" height="259" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
-    <state width="1858" height="259" key="GridCell.Tab.0.right" timestamp="1582206092432">
+    <state width="1858" height="259" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582212031842" />
+    <state width="1858" height="259" key="GridCell.Tab.0.right" timestamp="1582212031842">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1858" height="259" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
+    <state width="1858" height="259" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582212031842" />
     <state x="348" y="0" width="1350" height="1080" key="SettingsEditor" timestamp="1582204317298">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="1546" y="0" key="SettingsEditor/0.0.1366.768/1366.0.1600.900@1366.0.1600.900" timestamp="1582106336408" />
     <state x="348" y="0" width="1350" height="1080" key="SettingsEditor/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582204317298" />
     <state x="2100" y="0" key="SettingsEditor/0.0.1920.1080/1920.0.1600.900@1920.0.1600.900" timestamp="1582107825520" />
-    <state x="818" y="390" width="517" height="324" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1582205924052">
+    <state x="818" y="390" width="517" height="330" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1582212020695">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="818" y="390" width="517" height="324" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582205924052" />
+    <state x="818" y="390" width="517" height="330" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582212020695" />
     <state x="239" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1582185290629">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -151,6 +158,6 @@
     <state x="239" y="185" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1582142595472" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Inventory_Manager$Inventory_Manager.coverage" NAME="Inventory-Manager Coverage Results" MODIFIED="1582205929576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Inventory_Manager$Inventory_Manager.coverage" NAME="Inventory-Manager Coverage Results" MODIFIED="1582212024945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

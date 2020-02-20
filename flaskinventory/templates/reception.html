@@ -88,8 +88,10 @@
    <td>{{d.prod_qty}}</td>
      <td>{{d.created_at}}</td>
  <td>
+
        <button type="button" class="btn btn-edit" data-toggle="modal" data-target = "#edit{{d.id}}" >
        <span class="btn-icon"><i class="glyphicon glyphicon-pencil"></i></span>Edit</button>
+
    </td>
      <div class="modal fade" id="edit{{d.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:150px;">
      <div class="modal-dialog" role="document">
@@ -119,9 +121,11 @@
 
    </div>
  <td>
+     {% if current_user.admin %}
       <a href="{{ url_for('delete', p_id = d.id,type ='reception') }}">
        <button type="button" class="btn btn-delete">
        <span class="btn-icon"><i class="glyphicon glyphicon-trash"></i></span>Delete</button></a>
+     {% endif %}
    </td>
  </tr>
  {% endfor %}

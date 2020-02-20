@@ -1,10 +1,11 @@
-from flask import render_template, url_for, redirect, flash, request, jsonify
-from flaskinventory import app, db, login_manager, login_required, bcrypt,current_user, login_user,logout_user
+from flask import render_template, url_for, redirect, flash, request, jsonify, g, app
+from flaskinventory import app, db, login_manager, login_required, bcrypt, current_user, login_user, logout_user
 from flaskinventory.forms import addproduct, addlocation, moveproduct, editproduct, editlocation, sellproduct, \
     addperson, editperson, editsellproduct, editmoveproduct, LoginForm, RegistrationForm
 from flaskinventory.models import Location, Product, Movement, Balance, Person, Sell, Stock, User
 import time, datetime
 from sqlalchemy.exc import IntegrityError
+
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -16,14 +17,26 @@ def user_loader(user_id):
     return User.query.get(user_id)
 
 
-@app.route("/Overview")
 @app.route("/")
+@app.route("/stock")
+def anon():
+    return redirect(url_for('login'))
+
+
+@app.route("/Overview")
 @login_required
 def overview():
     main_exist = Person.query.filter_by(name="CL_001").first()
     if not main_exist:
         main = Person(name="CL_001", phone="00000000", lastname="CL_OO1", code="CL_001")
         db.session.add(main)
+        db.session.commit()
+
+    admin_exist = User.query.filter_by(admin=True).first()
+    if not admin_exist:
+        password = bcrypt.generate_password_hash("ADMIN_12345@").decode('utf-8')
+        admin = User(email="admin@inventory.com", authenticated=False, username="ADMIN", password=password, admin=True)
+        db.session.add(admin)
         db.session.commit()
 
     cave_exist = Location.query.filter_by(loc_name="Cave").first()
@@ -38,17 +51,19 @@ def overview():
         db.session.add(bar)
         db.session.commit()
 
-    balance = Balance.query.all()
-    exists = bool(Balance.query.all())
+    sells = Sell.query.all()
+    stocks=Stock.query.all()
+    exists = bool(Sell.query.all())
+    print(sells)
     if not exists:
         flash(f'Add products,locations and make transfers to view', 'info')
-    return render_template('overview.html', balance=balance)
+    return render_template('overview.html', sells=sells,stocks=stocks)
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('overview'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -248,16 +263,16 @@ def sell():
         for n in prod_stocks:
             prod_av_qte = prod_av_qte + n.prod_qty
 
-        print("Qte Available",prod_av_qte)
-        print("Qte Incoming",form.prodqty.data)
-        if form.prodqty.data<=prod_av_qte :
+        print("Qte Available", prod_av_qte)
+        print("Qte Incoming", form.prodqty.data)
+        if form.prodqty.data <= prod_av_qte:
             sell = Sell(date=timestamp, person_id=form.person.data,
                         qty=form.prodqty.data, credit=form.credit.data, stock_id=form.product.data)
             db.session.add(sell)
             db.session.commit()
             flash(f'Your Sell has been added!', 'success')
         else:
-            flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'error')
+            flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
         return redirect(url_for('sell'))
     return render_template('sell.html', title='Sells', form=form, sells=sells, eform=eform)
 

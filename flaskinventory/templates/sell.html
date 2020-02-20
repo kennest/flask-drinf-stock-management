@@ -1,0 +1,107 @@
+{% extends "overview.html" %}
+{% block content %}
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+       {%if messages %}
+            {%for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                <h4 style="text-align:center;">{{ message }}</h4>
+              </div>
+            {%endfor%}
+      {%endif %}
+    {%endwith%}
+  </div>
+  <div class="container">
+
+<h1>Ventes</h1>
+<div >
+  <h3 style="display: inline-block;margin:0;"> Gestion de la vente de vos boissons</h3>
+  <button type="button" class="btn btn-add" data-toggle="modal" data-target="#exampleModal">
+   <span class="btn-icon-add"><i class="glyphicon glyphicon-plus"></i></span>Enregistrer une vente</button>
+</div>
+
+<!-- Modal code-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:150px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h3 class="modal-title" id="exampleModalLabel">Sell Product</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  action="" method="post" id="sells">
+          {{ form.csrf_token() }}
+
+            {{form.product.label(class="form-control-label")}}<br>
+              <div id="prod">
+            {{form.product(class="form-control form-control-lg")}}
+          </div>
+
+          <div id="from">
+          {{form.credit.label(class="form-control-label")}}<br>
+          {{form.credit(class="form-control form-control-lg")}}
+          </div>
+
+            {{form.prodqty.label(class="form-control-label")}}<br>
+          <div class="qty">
+            {{form.prodqty(class="form-control form-control-lg") }}
+          </div>
+             {{form.person.label(class="form-control-label")}}<br>
+          <div class="qty">
+            {{form.person(class="form-control form-control-lg") }}
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="move" >
+          {{ form.sellsubmit(class="btn btn-primary") }}
+       </div>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!--end of modal design-->
+
+<table class="table table-hover">
+<thead>
+ <tr>
+   <th>N°</th>
+   <th>Client</th>
+   <th>Emplacement</th>
+   <th>Boisson</th>
+   <th>Quantité </th>
+   <th>Prix</th>
+   <th>a Crédit</th>
+   <th>Date</th>
+ </tr>
+</thead>
+<tbody>
+{%for d in sells%}
+ <tr>
+   <td>{{d.id}}</td>
+   <td>{{d.person.name}}</td>
+   <td>{{d.stocks.location.loc_name}}</td>
+   <td>{{d.stocks.product.prod_name}}</td>
+   <td>{{d.qty}}</td>
+   <td>{{(d.stocks.price)}}</td>
+   <td>
+       {%- if d.credit -%}
+           Oui
+           {% else %}
+           Non
+       {% endif %}
+   </td>
+ <td>{{d.date}}</td>
+ </tr>
+ {% endfor %}
+</tbody>
+</table>
+
+</div>
+
+
+{% endblock content %}

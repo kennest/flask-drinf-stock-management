@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="81c76a07-8e4c-4333-b1fe-fa91682ad7f6" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="site.db" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="site.db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="site.db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Y1NVVw5cxw49Su0TGl2IoSnEsL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="sqlite" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/flaskinventory/templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/flaskinventory/templates" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Inventory-Manager" type="PythonConfigurationType" factoryName="Python">
+      <module name="Inventory-Manager" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/flaskinventory/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="81c76a07-8e4c-4333-b1fe-fa91682ad7f6" name="Default Changelist" comment="" />
+      <created>1582106164346</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582106164346</updated>
+      <workItem from="1582106170095" duration="210000" />
+      <workItem from="1582107694558" duration="1506000" />
+      <workItem from="1582118696459" duration="12647000" />
+      <workItem from="1582142506008" duration="138000" />
+      <workItem from="1582185250383" duration="18243000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="555" y="195" width="800" height="691" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582119525564">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="555" y="195" width="800" height="691" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582119525564" />
+    <state x="685" y="241" width="530" height="600" key="FileChooserDialogImpl" timestamp="1582119519956">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="685" y="241" width="530" height="600" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582119519956" />
+    <state width="1858" height="259" key="GridCell.Tab.0.bottom" timestamp="1582206092432">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1858" height="259" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
+    <state width="1858" height="259" key="GridCell.Tab.0.center" timestamp="1582206092432">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1858" height="259" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
+    <state width="1858" height="259" key="GridCell.Tab.0.left" timestamp="1582206092432">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1858" height="259" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
+    <state width="1858" height="259" key="GridCell.Tab.0.right" timestamp="1582206092432">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1858" height="259" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582206092432" />
+    <state x="348" y="0" width="1350" height="1080" key="SettingsEditor" timestamp="1582204317298">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1546" y="0" key="SettingsEditor/0.0.1366.768/1366.0.1600.900@1366.0.1600.900" timestamp="1582106336408" />
+    <state x="348" y="0" width="1350" height="1080" key="SettingsEditor/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582204317298" />
+    <state x="2100" y="0" key="SettingsEditor/0.0.1920.1080/1920.0.1600.900@1920.0.1600.900" timestamp="1582107825520" />
+    <state x="818" y="390" width="517" height="324" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1582205924052">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="818" y="390" width="517" height="324" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582205924052" />
+    <state x="239" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1582185290629">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="239" y="185" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1600.900@0.0.1920.1080" timestamp="1582185290629" />
+    <state x="2119" y="154" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1600.900@1920.0.1600.900" timestamp="1582107718648" />
+    <state x="239" y="185" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1582142595472" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Inventory_Manager$Inventory_Manager.coverage" NAME="Inventory-Manager Coverage Results" MODIFIED="1582205929576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>

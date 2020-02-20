@@ -1,1 +1,0 @@
-/home/davis/miniconda3/lib/python3.7/copyreg.py

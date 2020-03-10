@@ -5,13 +5,34 @@ from wtforms.validators import DataRequired, NumberRange, Email, Length, EqualTo
 
 class addproduct(FlaskForm):
     prodname = StringField('Product Name', validators=[DataRequired()])
-    # prodqty = IntegerField('Quantity', validators=[NumberRange(min=5, max=1000000),DataRequired()])
+    price = IntegerField('Prix', validators=[DataRequired()])
     prodsubmit = SubmitField('Save Changes')
+
+
+class addkit(FlaskForm):
+    qty = IntegerField('Qte', validators=[DataRequired()])
+    price = IntegerField('Prix', validators=[DataRequired()])
+    kitsubmit = SubmitField('Save')
+
+
+class editkit(FlaskForm):
+    qty = IntegerField('Qte', validators=[DataRequired()])
+    price = IntegerField('Prix', validators=[DataRequired()])
+    kiteditsubmit = SubmitField('Save Changes')
+
+
+class addMargin(FlaskForm):
+    mprodname = SelectField(
+        'Nom de la boisson')
+    location = SelectField(
+        'Emplacements')
+    value = IntegerField('Valeur', validators=[DataRequired()])
+    marginsubmit = SubmitField('Save Changes')
 
 
 class editproduct(FlaskForm):
     editname = StringField('Product Name', validators=[DataRequired()])
-    # editqty = IntegerField('Quantity', validators=[NumberRange(min=5, max=1000000),DataRequired()])
+    price = IntegerField('Prix', validators=[DataRequired()])
     editsubmit = SubmitField('Save Changes')
 
 
@@ -45,8 +66,7 @@ class moveproduct(FlaskForm):
         'Nom de la boisson')
     destination = SelectField(
         'Destination')
-    mprodqty = IntegerField('Quantité', validators=[NumberRange(min=5, max=1000000), DataRequired()])
-    price_unit = IntegerField('Prix unitaire', validators=[DataRequired()])
+    mprodqty = IntegerField('Quantité', validators=[DataRequired()])
     movesubmit = SubmitField('Sauvergarder')
 
 
@@ -55,8 +75,7 @@ class editmoveproduct(FlaskForm):
         'Nom de la boisson')
     destination = SelectField(
         'Emplacement')
-    mprodqty = IntegerField('Quantité', validators=[NumberRange(min=5, max=1000000), DataRequired()])
-    price_unit = IntegerField('Prix unitaire', validators=[DataRequired()])
+    mprodqty = IntegerField('Quantité', validators=[DataRequired()])
     editsubmit = SubmitField('Sauvegarder')
 
 
@@ -65,9 +84,21 @@ class sellproduct(FlaskForm):
         'Nom du produit')
     person = SelectField(
         'Nom du client')
-    prodqty = IntegerField('Quantité', validators=[NumberRange(min=5, max=1000000), DataRequired()])
+    prodqty = IntegerField('Quantité', validators=[DataRequired()])
     credit = BooleanField('à Crèdit')
     sellsubmit = SubmitField('Sauvegarder')
+
+
+class sellkit(FlaskForm):
+    product = SelectField(
+        'Nom du produit')
+    person = SelectField(
+        'Nom du client')
+    kit = SelectField(
+        'Kit')
+    kitqty = IntegerField('Nombre de kits', validators=[DataRequired()])
+    credit = BooleanField('à Crèdit')
+    sellkitsubmit = SubmitField('Sauvegarder')
 
 
 class editsellproduct(FlaskForm):
@@ -75,7 +106,7 @@ class editsellproduct(FlaskForm):
         'Product Name')
     person = SelectField(
         'Person Name')
-    prodqty = IntegerField('Quantity', validators=[NumberRange(min=5, max=1000000), DataRequired()])
+    prodqty = IntegerField('Quantity', validators=[DataRequired()])
     credit = BooleanField('Credit')
     sellsubmit = SubmitField('Save')
 

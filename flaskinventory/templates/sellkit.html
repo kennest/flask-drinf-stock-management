@@ -16,19 +16,17 @@
 <h1>Ventes</h1>
    <h3 style="display: inline-block;margin:0;"> Gestion de la vente de vos boissons</h3>
 <div class="row">
-  <button type="button" class="btn btn-add" data-toggle="modal" data-target="#exampleModal">
-      <span class="btn-icon-add"><i class="glyphicon glyphicon-plus"></i></span>vente simple</button><p>&nbsp;</p>
     <button type="button" class="btn btn-add" data-toggle="modal" data-target="#exampleModalkit">
    <span class="btn-icon-add"><i class="glyphicon glyphicon-plus"></i></span>Vente par kit</button><p>&nbsp;</p>
 </div>
 
-<!-- Modal code-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:150px;">
+  <!-- Modal code-->
+<div class="modal fade" id="exampleModalkit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:150px;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
 
-        <h3 class="modal-title" id="exampleModalLabel">Sell Product</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Sell Kit</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -46,10 +44,13 @@
           {{form.credit.label(class="form-control-label")}}<br>
           {{form.credit(class="form-control form-control-lg")}}
           </div>
-
-            {{form.prodqty.label(class="form-control-label")}}<br>
+            {{form.kit.label(class="form-control-label")}}<br>
           <div class="qty">
-            {{form.prodqty(class="form-control form-control-lg") }}
+            {{form.kit(class="form-control form-control-lg") }}
+          </div>
+            {{form.kitqty.label(class="form-control-label")}}<br>
+          <div class="qty">
+            {{form.kitqty(class="form-control form-control-lg") }}
           </div>
              {{form.person.label(class="form-control-label")}}<br>
           <div class="qty">
@@ -59,7 +60,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <div class="move" >
-          {{ form.sellsubmit(class="btn btn-primary") }}
+          {{ form.sellkitsubmit(class="btn btn-primary") }}
        </div>
       </div>
     </form>
@@ -67,7 +68,6 @@
   </div>
 </div>
 <!--end of modal design-->
-
 
 <h2><b>Cave</b></h2>
 <table class="table table-hover" id="example">

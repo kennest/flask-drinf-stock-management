@@ -13,41 +13,40 @@
 </div>
 <div class="container">
 
-<h1>Products</h1>
+<h1>Kit</h1>
 <div >
-  <h3 style="display: inline-block;margin:0;"> Manage products in your central Warehouse</h3>
+  <h3 style="display: inline-block;margin:0;"> Ajouter des kits</h3>
   <button type="button" class="btn btn-add" data-toggle="modal" data-target="#exampleModal">
-   <span class="btn-icon-add"><i class="glyphicon glyphicon-plus"></i></span>Add Product</button>
+   <span class="btn-icon-add"><i class="glyphicon glyphicon-plus"></i></span>Add Kit</button>
 </div>
 
-<!-- add Modal code-->
+<!-- Modal code-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:150px;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Add Product</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Add kit</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div id="modal-cont" class="modal-body" >
-        <form  action="" method="POST" id="products">
+      <div class="modal-body">
+      <form  action="" method="POST">
           {{ form.csrf_token() }}
-          {{form.prodname.label(class="form-control-label")}}<br>
-          {{ form.prodname(class="form-control form-control-lg") }}
-            {{form.price.label(class="form-control-label")}}<br>
-          {{ form.price(class="form-control form-control-lg") }}
+          {{form.price.label(class="form-control-label")}}<br>
+          {{form.price(class="form-control form-control-lg")}}
+          {{form.qty.label(class="form-control-label")}}<br>
+          {{form.qty(class="form-control form-control-lg")}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <div >
-          {{ form.prodsubmit(class="btn btn-primary") }}
-        </div>
+          {{ form.kitsubmit(class="btn btn-primary") }}
+       </div>
       </div>
     </form>
-   </div>
- </div>
-
+    </div>
+  </div>
 </div>
 <!--end of modal design-->
 
@@ -55,20 +54,20 @@
 <thead>
  <tr>
    <th>ID</th>
-   <th>Product Name</th>
-   <th>Price</th>
+   <th>Prix</th>
+   <th>Quantité</th>
    <th></th>
    <th></th>
  </tr>
 </thead>
 <tbody>
-  {% for d in details %}
+  {% for d in kits %}
   <tr>
-   <td>{{d.id}}</td>
-   <td>{{d.prod_name}}</td>
-   <td>{{d.price}}</td>
+    <td>{{d.id}}</td>
+    <td>{{d.price}}</td>
+    <td>{{d.qty}}</td>
    <td>
-       <button type="button" class="btn btn-edit" data-toggle="modal" data-target = "#edit{{d.id}}" >
+       <button type="button" class="btn btn-edit" data-toggle="modal" data-target ="#edit{{d.id}}">
        <span class="btn-icon"><i class="glyphicon glyphicon-pencil"></i></span>Edit</button>
    </td>
    <!--editmodal-->
@@ -76,27 +75,24 @@
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
-           <h3 class="modal-title" id="exampleModalLabel">Edit Product</h3>
+           <h3 class="modal-title" id="exampleModalLabel">Edit Kit</h3>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
          <div id="modal-cont" class="modal-body" >
-           <form  action="" method="POST" id="products">
-             <input type="hidden" name="productid" value="{{d.id}}"/>
-             <input type="hidden" name="productname" value="{{d.prod_name}}"/>
+        <form  action="" method="POST">
+          <input type="hidden" name="id" value="{{d.id}}"/>
              {{ eform.csrf_token() }}
-             {{eform.editname.label(class="form-control-label")}}<br>
-             {{ eform.editname(class="form-control form-control-lg",placeholder=d.prod_name) }}
-               {{eform.price.label(class="form-control-label")}}<br>
+             {{eform.price.label(class="form-control-label")}}<br>
              {{ eform.price(class="form-control form-control-lg",placeholder=d.price) }}
+             {{eform.qty.label(class="form-control-label")}}<br>
+             {{ eform.qty(class="form-control form-control-lg",placeholder=d.qty) }}
          </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-           <div >
-              <!--<a href="{{ url_for('product', p_id = d.id) }}">-->
-             {{ eform.editsubmit(class="btn btn-primary") }}
-             <!--</a>-->
+           <div>
+             {{ eform.kiteditsubmit(class="btn btn-primary") }}
            </div>
          </div>
        </form>
@@ -106,17 +102,16 @@
    </div>
    <!--editmodal end-->
    <td>
-      <a href="{{ url_for('delete', p_id = d.id,type ='product') }}">
+       {% if current_user.admin %}
+      <a href="{{ url_for('delete', id = d.id,type ='kit' )}}">
        <button type="button" class="btn btn-delete">
-       <span class="btn-icon"><i class="glyphicon glyphicon-trash"></i></span>Delete</button></a>
+       <span class="btn-icon"><i class="glyphicon glyphicon-trash"></i></span>Delete</button>
+          {% endif %}
    </td>
  </tr>
-{%endfor%}
+{% endfor %}
 </tbody>
 
 </table>
-<script type="text/javascript">
-
-</script>
-
+</div>
 {% endblock content %}

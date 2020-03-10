@@ -13,11 +13,11 @@
   </div>
   <div class="container">
 
-<h1>Réception</h1>
+<h1>Marges</h1>
 <div >
-  <h3 style="display: inline-block;margin:0;"> Gérer la réception de vos boissons</h3>
+  <h3 style="display: inline-block;margin:0;"> Gérer vos marges</h3>
   <button type="button" class="btn btn-add" data-toggle="modal" data-target="#exampleModal">
-   <span class="btn-icon-add"><i class="glyphicon glyphicon-plus"></i></span>Réceptionner un stock</button>
+   <span class="btn-icon-add"><i class="glyphicon glyphicon-plus"></i></span>Configurer une marge</button>
 </div>
 
 <!-- Modal code-->
@@ -26,7 +26,7 @@
     <div class="modal-content">
       <div class="modal-header">
 
-        <h3 class="modal-title" id="exampleModalLabel">Move Product</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Ajout de Marge</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -40,19 +40,19 @@
             {{form.mprodname(class="form-control form-control-lg")}}
           </div>
           <div id="to">
-          {{form.destination.label(class="form-control-label")}}<br>
-          {{form.destination(class="form-control form-control-lg")}}
+          {{form.location.label(class="form-control-label")}}<br>
+          {{form.location(class="form-control form-control-lg")}}
           </div>
 
-            {{form.mprodqty.label(class="form-control-label")}}<br>
+            {{form.value.label(class="form-control-label")}}<br>
           <div class="qty">
-            {{form.mprodqty(class="form-control form-control-lg") }}
+            {{form.value(class="form-control form-control-lg") }}
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <div class="move" >
-          {{ form.movesubmit(class="btn btn-primary") }}
+          {{ form.marginsubmit(class="btn btn-primary") }}
        </div>
       </div>
     </form>
@@ -66,21 +66,20 @@
 <thead>
  <tr>
    <th>ID</th>
-   <th>Prix</th>
    <th>Boisson</th>
-   <th>Quantité</th>
-     <th>Date</th>
+   <th>Emplacement</th>
+   <th>Marge</th>
      <th></th>
      <th></th>
  </tr>
 </thead>
 <tbody>
-{%for d in stocks%}
+{%for d in margins%}
  <tr>
    <td>{{d.id}}</td>
-   <td>{{d.price}}</td>
    <td>{{d.product.prod_name}}</td>
-   <td>{{d.prod_qty}}</td>
+   <td>{{d.location.loc_name}}</td>
+   <td>{{d.value}}</td>
      <td>{{d.created_at}}</td>
  <td>
 
@@ -92,21 +91,27 @@
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
-           <h3 class="modal-title" id="exampleModalLabel">Edit Product</h3>
+           <h3 class="modal-title" id="exampleModalLabel">Editer Marge</h3>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
          <div id="modal-cont" class="modal-body" >
            <form  action="" method="POST" id="products">
-             <input type="hidden" name="receptionid" value="{{d.id}}"/>
+             <input type="hidden" name="marginid" value="{{d.id}}"/>
              {{ eform.csrf_token() }}
+               {{eform.mprodname.label(class="form-control-label")}}<br>
+               {{ eform.mprodname(class="form-control form-control-lg") }}
+               {{eform.location.label(class="form-control-label")}}<br>
+             {{ eform.location(class="form-control form-control-lg") }}
+               {{eform.value.label(class="form-control-label")}}<br>
+             {{ eform.value(class="form-control form-control-lg",placeholder=d.value) }}
          </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
            <div >
-              <!--<a href="{{ url_for('product', p_id = d.id) }}">-->
-             {{ eform.editsubmit(class="btn btn-primary") }}
+              <!--<a href="{{ url_for('margin', p_id = d.id) }}">-->
+             {{ eform.marginsubmit(class="btn btn-primary") }}
              <!--</a>-->
            </div>
          </div>
@@ -117,7 +122,7 @@
    </div>
  <td>
      {% if current_user.admin %}
-      <a href="{{ url_for('delete', p_id = d.id,type ='reception') }}">
+      <a href="{{ url_for('delete', p_id = d.id,type ='margin') }}">
        <button type="button" class="btn btn-delete">
        <span class="btn-icon"><i class="glyphicon glyphicon-trash"></i></span>Delete</button></a>
      {% endif %}
@@ -129,3 +134,12 @@
 </div>
 
 {% endblock content %}
+
+{% block script %}
+    <script type="text/javascript">
+ $(document).ready(function() {
+  console.log("Edit marge","started...");
+  $("#")
+});
+    </script>
+{% endblock script %}

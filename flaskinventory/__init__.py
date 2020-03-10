@@ -4,12 +4,13 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_required,current_user,login_user,logout_user
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.session_protection = "strong"
 # the toolbar is only enabled in debug mode:
-app.debug = True
+app.debug = False
 app.config['SECRET_KEY'] = '323b22caac41acbf'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

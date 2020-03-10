@@ -1,7 +1,11 @@
 from flaskinventory import db
 from datetime import datetime
 from sqlalchemy.orm import relationship
-from flask_rbac import RoleMixin
+
+products_kits = db.Table('products_kits', db.Model.metadata,
+                         db.Column('product_id', db.Integer, db.ForeignKey('product.id')),
+                         db.Column('kit_id', db.Integer, db.ForeignKey('kit.id'))
+                         )
 
 
 class User(db.Model):
@@ -35,23 +39,54 @@ class User(db.Model):
         return False
 
 
-
 class Location(db.Model):
     db.__tablename__ = 'location'
     id = db.Column(db.Integer, primary_key=True)
     loc_name = db.Column(db.String(20), unique=True, nullable=False)
     stocks = relationship("Stock", back_populates="location")
+    margin = db.relationship("Margin", back_populates="location")
 
     def __repr__(self):
         return f"Location('{self.id}','{self.loc_name}')"
-        return "Location('{self.loc_id}','{self.loc_name}')"
+
+
+class Kit(db.Model):
+    db.__tablename__ = 'kit'
+    id = db.Column(db.Integer, primary_key=True)
+    price = db.Column(db.Integer, nullable=False)
+    qty = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Kit('{self.id}','{self.price}')"
+
+
+class Margin(db.Model):
+    db.__tablename__ = 'kit'
+    id = db.Column(db.Integer, primary_key=True)
+    value = db.Column(db.Integer, nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    product = db.relationship("Product", back_populates="margin")
+    loc_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+    location = relationship('Location', back_populates="margin")
+
+    __table_args__ = (
+        db.UniqueConstraint('product_id', 'loc_id'),
+    )
+
+    def __repr__(self):
+        return f"Location('{self.id}','{self.loc_name}')"
 
 
 class Product(db.Model):
     db.__tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
+    price = db.Column(db.Integer)
     prod_name = db.Column(db.String(20), unique=True, nullable=False)
-    stocks = relationship("Stock", back_populates="product")
+    loc_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+    location = relationship("Location")
+    margin = db.relationship("Margin", back_populates="product")
+    kits = db.relationship("Kit", secondary=products_kits)
+    stocks = db.relationship("Stock", back_populates="product")
 
     def __repr__(self):
         return f"Product('{self.id}','{self.prod_name}','{self.stocks[0].prod_qty}')"
@@ -65,7 +100,6 @@ class Stock(db.Model):
     loc_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     location = relationship('Location', back_populates="stocks")
     sells = relationship('Sell', back_populates="stocks")
-    price = db.Column(db.Integer, nullable=False)
     prod_qty = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 

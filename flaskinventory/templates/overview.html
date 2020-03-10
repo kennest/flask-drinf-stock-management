@@ -31,9 +31,12 @@
                 {% if current_user.is_authenticated %}
                     <a class="nav-item nav-link" href="/">Vue Globale</a>
               <a class="nav-item nav-link" href="/Product">Boissons</a>
+              <a class="nav-item nav-link" href="/Kit">Kits</a>
+              <a class="nav-item nav-link" href="/Margin">Marges</a>
               <a class="nav-item nav-link" href="/Location">Emplacements</a>
               <a class="nav-item nav-link" href="/Reception">Reception de boissons</a>
               <a class="nav-item nav-link" href="/Sell">Ventes</a>
+                    <a class="nav-item nav-link" href="/Buy">Dépenses</a>
               <a class="nav-item nav-link" href="/Person">Clients</a>
                 <a class="navbar-brand" href="{{ url_for('logout') }}">Deconnexion</a>
             {% endif %}
@@ -164,5 +167,8 @@
   $('.table').DataTable();
 });
   </script>
+   {% block script %}
+
+   {% endblock script %}
   </body>
 </html>

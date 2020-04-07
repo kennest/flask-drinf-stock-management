@@ -43,8 +43,10 @@ class Location(db.Model):
     db.__tablename__ = 'location'
     id = db.Column(db.Integer, primary_key=True)
     loc_name = db.Column(db.String(20), unique=True, nullable=False)
-    stocks = relationship("Stock", back_populates="location")
+    sells = db.relationship("Sell", back_populates="location")
+    stocks = db.relationship("Stock", back_populates="location")
     margin = db.relationship("Margin", back_populates="location")
+    products = relationship("Product", back_populates="location")
 
     def __repr__(self):
         return f"Location('{self.id}','{self.loc_name}')"
@@ -83,7 +85,7 @@ class Product(db.Model):
     price = db.Column(db.Integer)
     prod_name = db.Column(db.String(20), unique=True, nullable=False)
     loc_id = db.Column(db.Integer, db.ForeignKey('location.id'))
-    location = relationship("Location")
+    location = relationship("Location",back_populates="products")
     margin = db.relationship("Margin", back_populates="product")
     kits = db.relationship("Kit", secondary=products_kits)
     stocks = db.relationship("Stock", back_populates="product")
@@ -99,7 +101,6 @@ class Stock(db.Model):
     product = relationship('Product', back_populates="stocks")
     loc_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     location = relationship('Location', back_populates="stocks")
-    sells = relationship('Sell', back_populates="stocks")
     prod_qty = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -149,10 +150,13 @@ class Sell(db.Model):
     db.__tablename__ = 'sell'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     qty = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer, nullable=False)
     person_id = db.Column(db.Integer, db.ForeignKey('person.id'))
     person = relationship('Person', back_populates="sells")
-    stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'))
-    stocks = relationship('Stock', back_populates="sells")
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    product = relationship('Product')
+    location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+    location = relationship('Location', back_populates="sells")
     credit = db.Column(db.Boolean, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 

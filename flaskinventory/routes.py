@@ -139,7 +139,7 @@ def product():
         return render_template('product.html', title='Products', details=details, eform=eform)
 
     elif form.validate_on_submit():
-        product = Product(prod_name=form.prodname.data, price=form.price.data)
+        product = Product(prod_name=form.prodname.data, price=form.price.data,loc_id=1)
         db.session.add(product)
         try:
             db.session.commit()
@@ -212,7 +212,7 @@ def loc():
     if lform.validate_on_submit() and request.method == 'POST':
         p_id = request.form.get("locid", "")
         locname = request.form.get("locname", "")
-        print("location id",p_id)
+        print("location id", p_id)
         details = Location.query.all()
         loc = Location.query.filter_by(id=p_id).first()
         loc.loc_name = lform.editlocname.data
@@ -246,108 +246,68 @@ def loc():
 def sell():
     form = sellproduct()
     eform = editsellproduct()
-    sells = Sell.query.all()
-    v_cave = 0
-    v_bar = 0
-    for n in sells:
-        if n.stocks.location.loc_name == "Cave":
-            v_cave = v_cave + (n.qty * n.stocks.price)
-        else:
-            v_bar = v_bar + (n.qty * n.stocks.price)
-    print("Vente Bar", v_bar)
-    print("Vente Cave", v_cave)
-    exists = bool(Sell.query.all())
-    if exists == False and request.method == 'GET':
-        flash(f'Sell of products  to view', 'info')
-    # ----------------------------------------------------------
-
-    person_choices = Person.query.with_entities(Person.id, Person.name).all()
-    stocks = Stock.query.all()
-    prod_choices = []
-    for n in stocks:
-        t = (n.id, n.product.prod_name + " ----->> " + n.location.loc_name + " (" + str(n.product.price) + " F CFA)")
-        prod_choices.append(t)
-    prod_list_names = []
-    person_list_names = []
-    prod_list_names += prod_choices
-    person_list_names += person_choices
-    # passing list_names to the form for select field
-    form.product.choices = prod_list_names
-    form.person.choices = person_list_names
-    # --------------------------------------------------------------
-    # send to db
-    if form.is_submitted() and request.method == 'POST':
-        print("Form Person=>", form.person.data)
-        timestamp = datetime.datetime.now()
-        prod_stocks = Stock.query.filter_by(id=form.product.data).all()
-        prod_av_qte = 0
-        for n in prod_stocks:
-            prod_av_qte = prod_av_qte + n.prod_qty
-
-        print("Qte Available", prod_av_qte)
-        print("Qte Incoming", form.prodqty.data)
-        if form.prodqty.data <= prod_av_qte:
-            sell = Sell(date=timestamp, person_id=form.person.data,
-                        qty=form.prodqty.data, credit=form.credit.data, stock_id=form.product.data)
-            db.session.add(sell)
-            db.session.commit()
-            flash(f'Your Sell has been added!', 'success')
-        else:
-            flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
-        return redirect(url_for('sell'))
-    return render_template('sell.html', title='Sells', form=form, sells=sells, eform=eform, v_bar=v_bar, v_cave=v_cave)
-
-
-@app.route("/SellKit", methods=['GET', 'POST'])
-@login_required
-def sellKit():
-    form = sellproduct()
-    eform = editsellproduct()
     kitform = sellkit()
     sells = Sell.query.all()
     v_cave = 0
     v_bar = 0
-    for n in sells:
-        if n.stocks.location.loc_name == "Cave":
-            v_cave = v_cave + (n.qty * n.stocks.price)
-        else:
-            v_bar = v_bar + (n.qty * n.stocks.price)
-    print("Vente Bar", v_bar)
-    print("Vente Cave", v_cave)
+    # for n in sells:
+    #     if n.stocks.location.loc_name == "Cave":
+    #         v_cave = v_cave + (n.qty * n.stocks.price)
+    #     else:
+    #         v_bar = v_bar + (n.qty * n.stocks.price)
+    # print("Vente Bar", v_bar)
+    # print("Vente Cave", v_cave)
     exists = bool(Sell.query.all())
     if exists == False and request.method == 'GET':
         flash(f'Sell of products  to view', 'info')
     # ----------------------------------------------------------
-
-    person_choices = Person.query.with_entities(Person.id, Person.name).all()
-    kits = Kit.query.all()
-    stocks = Stock.query.all()
     prod_choices = []
     kits_choices = []
-    for n in stocks:
-        t = (n.id, n.product.prod_name + " ----->> " + n.location.loc_name + " (" + str(n.product.price) + " F CFA)")
+    location_choices = []
+    person_choices = Person.query.with_entities(Person.id, Person.name).all()
+    products = Product.query.all()
+    locations = db.session.query(Location).filter(Location.loc_name != "Principal")
+    kits = Kit.query.all()
+
+    for n in products:
+        t = (n.id, n.prod_name + " ----->> " + n.location.loc_name + " (" + str(n.price) + " F CFA)")
         prod_choices.append(t)
+
+    for n in locations:
+        t = (n.id, n.loc_name)
+        location_choices.append(t)
+
     for n in kits:
         t = (n.id, str(n.qty) + " A " + str(n.price) + " F CFA")
         kits_choices.append(t)
+
     prod_list_names = []
     kit_list_names = []
     person_list_names = []
-    prod_list_names += prod_choices
+    loc_list_names = []
+
+    # passing list_names to the form for select field
     person_list_names += person_choices
+    prod_list_names += prod_choices
     kit_list_names += kits_choices
+    loc_list_names += location_choices
     # passing list_names to the form for select field
     form.product.choices = prod_list_names
+    form.location.choices = loc_list_names
     form.person.choices = person_list_names
+
     kitform.person.choices = person_list_names
     kitform.product.choices = prod_list_names
+    kitform.location.choices = loc_list_names
     kitform.kit.choices = kit_list_names
+
     # --------------------------------------------------------------
     # send to db
-    if form.is_submitted() and request.method == 'POST':
-        print("Form Person=>", form.person.data)
+    if form.is_submitted():
+        print("Form Person 0=>", form.person.data)
         timestamp = datetime.datetime.now()
         prod_stocks = Stock.query.filter_by(id=form.product.data).all()
+        product = Product.query.filter_by(id=form.product.data).first()
         prod_av_qte = 0
         for n in prod_stocks:
             prod_av_qte = prod_av_qte + n.prod_qty
@@ -355,18 +315,108 @@ def sellKit():
         print("Qte Available", prod_av_qte)
         print("Qte Incoming", form.prodqty.data)
         if form.prodqty.data <= prod_av_qte:
-            sell = Sell(date=timestamp, person_id=form.person.data,
-                        qty=form.prodqty.data, credit=form.credit.data, stock_id=form.product.data)
+            sell = Sell(date=timestamp, person_id=form.person.data,price=(product.price*form.prodqty.data),
+                        qty=form.prodqty.data, credit=form.credit.data, location_id=form.location.data,product_id=form.product.data)
             db.session.add(sell)
             db.session.commit()
             flash(f'Your Sell has been added!', 'success')
         else:
             flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
         return redirect(url_for('sell'))
-    elif kitform.is_submitted() and request.method == 'POST':
-        print("Kit Form", "Submited")
-    return render_template('sell.html', title='Sells', form=form, sells=sells, eform=eform, v_bar=v_bar, v_cave=v_cave,
-                           kitform=kitform)
+    elif kitform.is_submitted():
+        print("Form Person 1=>", kitform.person.data)
+        timestamp = datetime.datetime.now()
+        prod_stocks = Stock.query.filter_by(id=kitform.product.data).all()
+        product = Product.query.filter_by(id=kitform.product.data).first()
+        kit = Kit.query.filter_by(id=kitform.kit.data).first()
+        prod_av_qte = 0
+        for n in prod_stocks:
+            prod_av_qte = prod_av_qte + n.prod_qty
+
+        print("Qte Available", prod_av_qte)
+        print("Qte Incoming", kitform.kitqty.data)
+        if kitform.kitqty.data <= prod_av_qte:
+            sell = Sell(date=timestamp, person_id=kitform.person.data, price=(kit.price * kitform.kitqty.data),
+                        qty=kitform.kitqty.data*kit.qty, credit=kitform.credit.data, location_id=kitform.location.data,product_id=kitform.product.data)
+            db.session.add(sell)
+            db.session.commit()
+            flash(f'Your Sell has been added!', 'success')
+        else:
+            flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
+        return redirect(url_for('sell'))
+    return render_template('sell.html', title='Sells', form=form, sells=sells, eform=eform, kitform=kitform,
+                           v_bar=v_bar, v_cave=v_cave)
+
+
+# @app.route("/SellKit", methods=['GET', 'POST'])
+# @login_required
+# def sellkit():
+#     form = sellproduct()
+#     eform = editsellproduct()
+#     kitform = sellkit()
+#     sells = Sell.query.all()
+#     v_cave = 0
+#     v_bar = 0
+#     for n in sells:
+#         if n.stocks.location.loc_name == "Cave":
+#             v_cave = v_cave + (n.qty * n.stocks.price)
+#         else:
+#             v_bar = v_bar + (n.qty * n.stocks.price)
+#     print("Vente Bar", v_bar)
+#     print("Vente Cave", v_cave)
+#     exists = bool(Sell.query.all())
+#     if exists == False and request.method == 'GET':
+#         flash(f'Sell of products  to view', 'info')
+#     # ----------------------------------------------------------
+#
+#     person_choices = Person.query.with_entities(Person.id, Person.name).all()
+#     kits = Kit.query.all()
+#     stocks = Stock.query.all()
+#     prod_choices = []
+#     kits_choices = []
+#     for n in stocks:
+#         t = (n.id, n.product.prod_name + " ----->> " + n.location.loc_name + " (" + str(n.product.price) + " F CFA)")
+#         prod_choices.append(t)
+#     for n in kits:
+#         t = (n.id, str(n.qty) + " A " + str(n.price) + " F CFA")
+#         kits_choices.append(t)
+#     prod_list_names = []
+#     kit_list_names = []
+#     person_list_names = []
+#     prod_list_names += prod_choices
+#     person_list_names += person_choices
+#     kit_list_names += kits_choices
+#     # passing list_names to the form for select field
+#     form.product.choices = prod_list_names
+#     form.person.choices = person_list_names
+#     kitform.person.choices = person_list_names
+#     kitform.product.choices = prod_list_names
+#     kitform.kit.choices = kit_list_names
+#     # --------------------------------------------------------------
+#     # send to db
+#     if form.is_submitted() and request.method == 'POST':
+#         print("Form Person=>", form.person.data)
+#         timestamp = datetime.datetime.now()
+#         prod_stocks = Stock.query.filter_by(id=form.product.data).all()
+#         prod_av_qte = 0
+#         for n in prod_stocks:
+#             prod_av_qte = prod_av_qte + n.prod_qty
+#
+#         print("Qte Available", prod_av_qte)
+#         print("Qte Incoming", form.prodqty.data)
+#         if form.prodqty.data <= prod_av_qte:
+#             sell = Sell(date=timestamp, person_id=form.person.data,
+#                         qty=form.prodqty.data, credit=form.credit.data, stock_id=form.product.data)
+#             db.session.add(sell)
+#             db.session.commit()
+#             flash(f'Your Sell has been added!', 'success')
+#         else:
+#             flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
+#         return redirect(url_for('sell'))
+#     elif kitform.is_submitted() and request.method == 'POST':
+#         print("Kit Form", "Submited")
+#     return render_template('sell.html', title='Sells', form=form, sells=sells, eform=eform, v_bar=v_bar, v_cave=v_cave,
+#                            kitform=kitform)
 
 
 @app.route("/Kit", methods=['GET', 'POST'])
@@ -376,29 +426,29 @@ def kit():
     editkitform = editkit()
     kits = Kit.query.all()
     exists = bool(kits)
-    print("Edit submitted",editkitform.validate_on_submit())
-    print("Add submitted",addkitform.validate_on_submit())
+    print("Edit submitted", editkitform.is_submitted())
+    print("Add submitted", addkitform.is_submitted())
     if exists == False and request.method == 'GET':
         flash(f'Kit of products  to view', 'info')
-    if editkitform.validate_on_submit() and request.method == 'POST':
-            id = request.form.get("id", "")
-            print("Request =>", request.form)
-            print("Kit Id=>", id)
-            kit = Kit.query.filter_by(id=id).first()
-            print("Kit Price=>", kit.price)
-            print("Kit Qty=>", kit.qty)
-            kit.price = editkitform.price.data
-            kit.qty = editkitform.qty.data
-            db.session.commit()
-            try:
-                db.session.commit()
-                flash(f'Your Kit  has been updated!', 'success')
-                return redirect('/Kit')
-            except IntegrityError:
-                db.session.rollback()
-                flash(f'This Kit already exists', 'danger')
-                return redirect('/Kit')
-            return render_template('kit.html', title='Kits', form=addkitform, kits=kits, eform=editkitform)
+    # elif editkitform.validate_on_submit() and request.method == 'POST':
+    #     id = request.form.get("id", "")
+    #     print("Request =>", request.form)
+    #     print("Kit Id=>", id)
+    #     kit = Kit.query.filter_by(id=id).first()
+    #     print("Kit Price=>", kit.price)
+    #     print("Kit Qty=>", kit.qty)
+    #     kit.price = editkitform.price.data
+    #     kit.qty = editkitform.qty.data
+    #     db.session.commit()
+    #     try:
+    #         db.session.commit()
+    #         flash(f'Your Kit  has been updated!', 'success')
+    #         return redirect('/Kit')
+    #     except IntegrityError:
+    #         db.session.rollback()
+    #         flash(f'This Kit already exists', 'danger')
+    #         return redirect('/Kit')
+    #     return render_template('kit.html', title='Kits', form=addkitform, kits=kits, eform=editkitform)
     elif addkitform.validate_on_submit():
         kit = Kit(price=addkitform.price.data, qty=addkitform.qty.data)
         db.session.add(kit)

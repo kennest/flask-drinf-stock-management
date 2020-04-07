@@ -84,6 +84,8 @@ class sellproduct(FlaskForm):
         'Nom du produit')
     person = SelectField(
         'Nom du client')
+    location = SelectField(
+        'Emplacement')
     prodqty = IntegerField('Quantité', validators=[DataRequired()])
     credit = BooleanField('à Crèdit')
     sellsubmit = SubmitField('Sauvegarder')
@@ -94,6 +96,8 @@ class sellkit(FlaskForm):
         'Nom du produit')
     person = SelectField(
         'Nom du client')
+    location = SelectField(
+        'Emplacement')
     kit = SelectField(
         'Kit')
     kitqty = IntegerField('Nombre de kits', validators=[DataRequired()])

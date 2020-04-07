@@ -42,6 +42,11 @@
             {{form.product(class="form-control form-control-lg")}}
           </div>
 
+             {{form.location.label(class="form-control-label")}}<br>
+              <div id="prod">
+            {{form.location(class="form-control form-control-lg")}}
+          </div>
+
           <div id="from">
           {{form.credit.label(class="form-control-label")}}<br>
           {{form.credit(class="form-control form-control-lg")}}
@@ -68,6 +73,61 @@
 </div>
 <!--end of modal design-->
 
+  <!-- Modal code-->
+<div class="modal fade" id="exampleModalkit" tabindex="-1" role="dialog" aria-labelledby="exampleModalkit" aria-hidden="true" style="margin-top:150px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h3 class="modal-title" id="exampleModalLabel">Sell Product</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  action="" method="post" id="sellkits">
+          {{ kitform.csrf_token() }}
+
+            {{kitform.product.label(class="form-control-label")}}<br>
+              <div id="prod">
+            {{kitform.product(class="form-control form-control-lg")}}
+          </div>
+
+            {{kitform.kit.label(class="form-control-label")}}<br>
+              <div id="prod">
+            {{kitform.kit(class="form-control form-control-lg")}}
+          </div>
+
+             {{kitform.location.label(class="form-control-label")}}<br>
+              <div id="prod">
+            {{kitform.location(class="form-control form-control-lg")}}
+          </div>
+
+          <div id="from">
+          {{kitform.credit.label(class="form-control-label")}}<br>
+          {{kitform.credit(class="form-control form-control-lg")}}
+          </div>
+
+            {{kitform.kitqty.label(class="form-control-label")}}<br>
+          <div class="qty">
+            {{kitform.kitqty(class="form-control form-control-lg") }}
+          </div>
+             {{kitform.person.label(class="form-control-label")}}<br>
+          <div class="qty">
+            {{kitform.person(class="form-control form-control-lg") }}
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="move" >
+          {{ kitform.sellkitsubmit(class="btn btn-primary") }}
+       </div>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!--end of modal design-->
 
 <h2><b>Cave</b></h2>
 <table class="table table-hover" id="example">
@@ -85,13 +145,13 @@
 </thead>
 <tbody>
 {%for d in sells%}
-    {% if d.stocks.location.loc_name=="Cave" %}
+    {% if d.location.loc_name=="Cave" %}
  <tr>
    <td>{{d.id}}</td>
    <td>{{d.person.name}}</td>
-   <td>{{d.stocks.product.prod_name}}</td>
+   <td>{{d.product.prod_name}}</td>
    <td>{{d.qty}}</td>
-   <td>{{(d.stocks.price)}}</td>
+   <td>{{(d.price)}}</td>
    <td>
        {%- if d.credit -%}
            Oui
@@ -122,13 +182,13 @@
 </thead>
 <tbody>
 {%for d in sells%}
-    {% if d.stocks.location.loc_name=="Bar" %}
+    {% if d.location.loc_name=="Bar" %}
  <tr>
    <td>{{d.id}}</td>
    <td>{{d.person.name}}</td>
-   <td>{{d.stocks.product.prod_name}}</td>
+   <td>{{d.product.prod_name}}</td>
    <td>{{d.qty}}</td>
-   <td>{{(d.stocks.price)}}</td>
+   <td>{{(d.price)}}</td>
    <td>
        {%- if d.credit -%}
            Oui

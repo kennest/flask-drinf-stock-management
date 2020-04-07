@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81c76a07-8e4c-4333-b1fe-fa91682ad7f6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Inventory-Manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Inventory-Manager.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/237edb35-d207-4956-8ce7-a7a106d00f6d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/237edb35-d207-4956-8ce7-a7a106d00f6d.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flaskinventory/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskinventory/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskinventory/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskinventory/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flaskinventory/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskinventory/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskinventory/site.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskinventory/templates/kit.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskinventory/templates/kit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskinventory/site.db" beforeDir="false" afterPath="$PROJECT_DIR$/flaskinventory/site.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flaskinventory/templates/sell.html" beforeDir="false" afterPath="$PROJECT_DIR$/flaskinventory/templates/sell.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,7 +130,7 @@
       <workItem from="1583828794747" duration="9560000" />
       <workItem from="1586085010933" duration="795000" />
       <workItem from="1586168586344" duration="7577000" />
-      <workItem from="1586252849648" duration="8061000" />
+      <workItem from="1586252849648" duration="10702000" />
     </task>
     <servers />
   </component>

@@ -88,7 +88,7 @@ class sellproduct(FlaskForm):
         'Emplacement')
     prodqty = IntegerField('Quantité', validators=[DataRequired()])
     credit = BooleanField('à Crèdit')
-    sellsubmit = SubmitField('Sauvegarder')
+    sellsubmit = SubmitField('Sauvegarder Vente')
 
 
 class sellkit(FlaskForm):
@@ -102,7 +102,7 @@ class sellkit(FlaskForm):
         'Kit')
     kitqty = IntegerField('Nombre de kits', validators=[DataRequired()])
     credit = BooleanField('à Crèdit')
-    sellkitsubmit = SubmitField('Sauvegarder')
+    sellkitsubmit = SubmitField('Sauvegarder Vente par Kit')
 
 
 class editsellproduct(FlaskForm):

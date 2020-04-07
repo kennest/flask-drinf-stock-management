@@ -34,7 +34,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form  action="" method="post" id="sells">
+        <form  action="{{ url_for('sell') }}" method="post" id="sells">
           {{ form.csrf_token() }}
 
             {{form.product.label(class="form-control-label")}}<br>
@@ -85,7 +85,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form  action="" method="post" id="sellkits">
+        <form  action="{{ url_for('sell') }}" method="post" id="sellkits">
           {{ kitform.csrf_token() }}
 
             {{kitform.product.label(class="form-control-label")}}<br>

@@ -257,10 +257,6 @@ def sell():
     #         v_bar = v_bar + (n.qty * n.stocks.price)
     # print("Vente Bar", v_bar)
     # print("Vente Cave", v_cave)
-    exists = bool(Sell.query.all())
-    if exists == False and request.method == 'GET':
-        flash(f'Sell of products  to view', 'info')
-    # ----------------------------------------------------------
     prod_choices = []
     kits_choices = []
     location_choices = []
@@ -301,49 +297,66 @@ def sell():
     kitform.location.choices = loc_list_names
     kitform.kit.choices = kit_list_names
 
-    # --------------------------------------------------------------
-    # send to db
-    if form.is_submitted():
-        print("Form Person 0=>", form.person.data)
-        timestamp = datetime.datetime.now()
-        prod_stocks = Stock.query.filter_by(id=form.product.data).all()
-        product = Product.query.filter_by(id=form.product.data).first()
-        prod_av_qte = 0
-        for n in prod_stocks:
-            prod_av_qte = prod_av_qte + n.prod_qty
+    exists = bool(Sell.query.all())
+    if exists == False and request.method == 'GET':
+        flash(f'Sell of products  to view', 'info')
+    if request.method=='POST':
+        if 'prodqty' in request.form:
+            print("Form Person 0=>", form.person.data)
+            timestamp = datetime.datetime.now()
+            prod_stocks = Stock.query.filter_by(product_id=form.product.data).all()
+            prod_sells = Sell.query.filter_by(product_id=kitform.product.data).all()
+            product = Product.query.filter_by(id=form.product.data).first()
+            av_qte = 0
+            stock_prod_av_qte = 0
+            sell_prod_av_qte = 0
+            for n in prod_stocks:
+                stock_prod_av_qte = stock_prod_av_qte + n.prod_qty
 
-        print("Qte Available", prod_av_qte)
-        print("Qte Incoming", form.prodqty.data)
-        if form.prodqty.data <= prod_av_qte:
-            sell = Sell(date=timestamp, person_id=form.person.data,price=(product.price*form.prodqty.data),
-                        qty=form.prodqty.data, credit=form.credit.data, location_id=form.location.data,product_id=form.product.data)
-            db.session.add(sell)
-            db.session.commit()
-            flash(f'Your Sell has been added!', 'success')
-        else:
-            flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
-        return redirect(url_for('sell'))
-    elif kitform.is_submitted():
-        print("Form Person 1=>", kitform.person.data)
-        timestamp = datetime.datetime.now()
-        prod_stocks = Stock.query.filter_by(id=kitform.product.data).all()
-        product = Product.query.filter_by(id=kitform.product.data).first()
-        kit = Kit.query.filter_by(id=kitform.kit.data).first()
-        prod_av_qte = 0
-        for n in prod_stocks:
-            prod_av_qte = prod_av_qte + n.prod_qty
+            for n in prod_sells:
+                sell_prod_av_qte = sell_prod_av_qte + n.qty
 
-        print("Qte Available", prod_av_qte)
-        print("Qte Incoming", kitform.kitqty.data)
-        if kitform.kitqty.data <= prod_av_qte:
-            sell = Sell(date=timestamp, person_id=kitform.person.data, price=(kit.price * kitform.kitqty.data),
-                        qty=kitform.kitqty.data*kit.qty, credit=kitform.credit.data, location_id=kitform.location.data,product_id=kitform.product.data)
-            db.session.add(sell)
-            db.session.commit()
-            flash(f'Your Sell has been added!', 'success')
-        else:
-            flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
-        return redirect(url_for('sell'))
+            av_qte = stock_prod_av_qte - sell_prod_av_qte
+
+            print("Qte Available", av_qte)
+            print("Qte Incoming", form.prodqty.data)
+            if form.prodqty.data <= av_qte:
+                sell = Sell(date=timestamp, person_id=form.person.data,price=(product.price*form.prodqty.data),
+                            qty=form.prodqty.data, credit=form.credit.data, location_id=form.location.data,product_id=form.product.data)
+                db.session.add(sell)
+                db.session.commit()
+                flash(f'Your Sell has been added!', 'success')
+            else:
+                flash(f'Erreur! la quantité est trop élèvée par rapport au stock,Ravitaillez le stock SVP!!', 'danger')
+            return redirect(url_for('sell'))
+        elif 'kitqty' in request.form:
+            print("Form Person 1 =>", kitform.person.data)
+            timestamp = datetime.datetime.now()
+            prod_stocks = Stock.query.filter_by(product_id=kitform.product.data).all()
+            prod_sells = Sell.query.filter_by(product_id=kitform.product.data).all()
+            product = Product.query.filter_by(id=kitform.product.data).first()
+            kit = Kit.query.filter_by(id=kitform.kit.data).first()
+            av_qte = 0
+            stock_prod_av_qte=0
+            sell_prod_av_qte=0
+            for n in prod_stocks:
+                stock_prod_av_qte = stock_prod_av_qte + n.prod_qty
+
+            for n in prod_sells:
+                sell_prod_av_qte = sell_prod_av_qte + n.qty
+
+            av_qte=stock_prod_av_qte-sell_prod_av_qte
+            print("Qte Available", av_qte)
+            print("Qte Incoming", kitform.kitqty.data)
+            if kitform.kitqty.data <= av_qte:
+                sell = Sell(date=timestamp, person_id=kitform.person.data, price=(kit.price * kitform.kitqty.data),
+                            qty=kitform.kitqty.data*kit.qty, credit=kitform.credit.data, location_id=kitform.location.data,product_id=kitform.product.data)
+                db.session.add(sell)
+                db.session.commit()
+                flash(f'Your Sell has been added!', 'success')
+            else:
+                flash(f'Erreur! la quantité est trop élèvée par rapport au stock', 'danger')
+            return redirect(url_for('sell'))
     return render_template('sell.html', title='Sells', form=form, sells=sells, eform=eform, kitform=kitform,
                            v_bar=v_bar, v_cave=v_cave)
 
